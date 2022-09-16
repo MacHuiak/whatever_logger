@@ -40,7 +40,7 @@ public final class ExtremeVPNAnalyticsConstants {
                     return "https://analytics-api.digitaloceanservice.com"
                 #endif
             case .getMyIP:
-                return "https://analytics-api.digitaloceanservice.com"
+                return "https://www.cloudflare.com"
             }
         }
     }
