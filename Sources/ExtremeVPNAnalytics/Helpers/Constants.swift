@@ -19,7 +19,7 @@ public final class ExtremeVPNAnalyticsConstants {
         //servers
         case sendEvent
         
-        //cloudflare
+        //ipify
         case getMyIP
         
         var urlString: String {
@@ -27,7 +27,7 @@ public final class ExtremeVPNAnalyticsConstants {
             case .sendEvent:
                 return "/api/events"
             case .getMyIP:
-                return "/cdn-cgi/trace"
+                return ""
             }
         }
         
@@ -40,7 +40,7 @@ public final class ExtremeVPNAnalyticsConstants {
                     return "https://analytics-api.digitaloceanservice.com"
                 #endif
             case .getMyIP:
-                return "https://www.cloudflare.com"
+                return "https://api64.ipify.org"
             }
         }
     }

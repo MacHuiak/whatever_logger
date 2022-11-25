@@ -40,19 +40,8 @@ class AnalyticsAPIService: NSObject {
     }
     
     private func getCurrentIPAddress(completion: @escaping (String) -> ()) {
-        api.get(apiRoute: .getMyIP) { data in
-            guard let responseString = String(data: data, encoding: .utf8) else {
-                return
-            }
-            
-            let responseArray = responseString.split(separator: "\n")
-            responseArray.forEach { responseItem in
-                let values = responseItem.split(separator: "=")
-                if values.count == 2 && values[0] == "ip" {
-                    completion(String(values[1]))
-                    return
-                }
-            }
+        api.get(apiRoute: .getMyIP, params: ["format":"json"]) { (ipResponseModel: IPResponseModel) in
+            completion(ipResponseModel.ip)
         } failure: { error in
             print(error.localizedDescription)
         }

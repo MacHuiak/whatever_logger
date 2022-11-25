@@ -27,7 +27,7 @@ public final class ExtremeVPNAnalytics: NSObject {
     
     private static func checkAndSendInstallEventIfNeeded() {
         guard isUserInstallEventAlreadyLogged else {
-            // could not find install event in keychain
+            // could not find install event in user defaults
             // sending this event to server 
             logEvent(eventType: .install)
             return
