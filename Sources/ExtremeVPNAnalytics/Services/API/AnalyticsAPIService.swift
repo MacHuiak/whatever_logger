@@ -23,19 +23,16 @@ class AnalyticsAPIService: NSObject {
             return
         }
         
-        getCurrentIPAddress { currentIP in
-            let params = self.preparePOSTParamsArray(eventType: eventType)
-            let header = ["cf-connecting-ip": currentIP]
+        let params = self.preparePOSTParamsArray(eventType: eventType)
+        
+        self.api.post(apiRoute: .sendEvent, params: params, headers: [:]) { (logEventResponseModel: LogEventResponseModel) in
+            debugPrint("\(type(of: self)) - successfully sent \(eventType.rawValue) event")
             
-            self.api.post(apiRoute: .sendEvent, params: params, headers: header) { (logEventResponseModel: LogEventResponseModel) in
-                debugPrint("\(type(of: self)) - successfully sent \(eventType.rawValue) event")
-                
-                if logEventResponseModel.success {
-                    success()
-                }
-            } failure: { error in
-                debugPrint("\(type(of: self)) - failed to log \(eventType.rawValue) event - \(error.localizedDescription)")
+            if logEventResponseModel.success {
+                success()
             }
+        } failure: { error in
+            debugPrint("\(type(of: self)) - failed to log \(eventType.rawValue) event - \(error.localizedDescription)")
         }
     }
     
