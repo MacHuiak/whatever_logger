@@ -12,6 +12,7 @@ public final class ExtremeVPNAnalyticsConstants {
     public enum ExtremeVPNAnalyticsEvent: String {
         case install = "install"
         case startTrial = "trial"
+        case renew = "renew"
     }
     
     //API routes

@@ -17,13 +17,17 @@ class AnalyticsAPIService: NSObject {
     private let api = NetworkHelper()
     var applicationToken: String = ""
     
-    func logEvent(eventType: ExtremeVPNAnalyticsConstants.ExtremeVPNAnalyticsEvent, success: @escaping () -> ()) {
+    func logEvent(eventType: ExtremeVPNAnalyticsConstants.ExtremeVPNAnalyticsEvent, eventParams: [String: String]? , success: @escaping () -> ()) {
         guard !applicationToken.isEmpty else {
             debugPrint("\(type(of: self)) - failed to log \(eventType.rawValue) event - application token is empty")
             return
         }
         
-        let params = self.preparePOSTParamsArray(eventType: eventType)
+        var params = self.preparePOSTParamsArray(eventType: eventType)
+        
+        if let eventParams = eventParams {
+            params = params.merging(eventParams, uniquingKeysWith: {(first, _) in first})
+        }
         
         self.api.post(apiRoute: .sendEvent, params: params, headers: [:]) { (logEventResponseModel: LogEventResponseModel) in
             debugPrint("\(type(of: self)) - successfully sent \(eventType.rawValue) event")

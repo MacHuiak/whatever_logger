@@ -34,8 +34,10 @@ public final class ExtremeVPNAnalytics: NSObject {
         }
     }
     
-    public static func logEvent(eventType: ExtremeVPNAnalyticsConstants.ExtremeVPNAnalyticsEvent) {
-        analyitcsAPIService.logEvent(eventType: eventType) {
+    public static func logEvent(
+        eventType: ExtremeVPNAnalyticsConstants.ExtremeVPNAnalyticsEvent,
+        params: [String: String]? = nil) {
+        analyitcsAPIService.logEvent(eventType: eventType, eventParams: params) {
             if eventType == .install {
                 isUserInstallEventAlreadyLogged = true
             }
