@@ -20,8 +20,9 @@ public final class ExtremeVPNAnalytics: NSObject {
         }
     }
     
-    public static func configure(applicationToken: String) {
+    public static func configure(applicationToken: String, baseUrl: String) {
         analyitcsAPIService.applicationToken = applicationToken
+        AnalyticsAPIService.baseUrl = baseUrl
         checkAndSendInstallEventIfNeeded()
     }
     

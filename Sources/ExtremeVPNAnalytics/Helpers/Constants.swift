@@ -35,11 +35,7 @@ public final class ExtremeVPNAnalyticsConstants {
         var domain: String {
             switch self {
             case .sendEvent:
-                #if DEBUG
-                    return "https://analytics-api.digitaloceanservice.com"
-                #else
-                    return "https://analytics-api.digitaloceanservice.com"
-                #endif
+                return AnalyticsAPIService.baseUrl
             case .getMyIP:
                 return "https://api64.ipify.org"
             }

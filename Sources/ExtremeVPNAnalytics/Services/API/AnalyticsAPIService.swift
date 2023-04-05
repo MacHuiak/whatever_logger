@@ -16,6 +16,7 @@
 class AnalyticsAPIService: NSObject {
     private let api = NetworkHelper()
     var applicationToken: String = ""
+    static var baseUrl: String = ""
     
     func logEvent(eventType: ExtremeVPNAnalyticsConstants.ExtremeVPNAnalyticsEvent, eventParams: [String: String]? , success: @escaping () -> ()) {
         guard !applicationToken.isEmpty else {
