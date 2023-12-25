@@ -25,14 +25,14 @@ class AnalyticsAPIService: NSObject {
         }
         
         var params = self.preparePOSTParamsArray(eventType: eventType)
-        
+        debugPrint("PARAMS \(params)")
         if let eventParams = eventParams {
             params = params.merging(eventParams, uniquingKeysWith: {(first, _) in first})
         }
         
         self.api.post(apiRoute: .sendEvent, params: params, headers: [:]) { (logEventResponseModel: LogEventResponseModel) in
             debugPrint("\(type(of: self)) - successfully sent \(eventType.rawValue) event")
-            
+            debugPrint("\(logEventResponseModel)")
             if logEventResponseModel.success {
                 success()
             }

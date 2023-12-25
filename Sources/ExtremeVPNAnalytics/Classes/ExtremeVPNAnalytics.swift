@@ -24,6 +24,7 @@ public final class ExtremeVPNAnalytics: NSObject {
         analyitcsAPIService.applicationToken = applicationToken
         AnalyticsAPIService.baseUrl = baseUrl
         checkAndSendInstallEventIfNeeded()
+        debugPrint("INIT")
     }
     
     private static func checkAndSendInstallEventIfNeeded() {
@@ -38,10 +39,12 @@ public final class ExtremeVPNAnalytics: NSObject {
     public static func logEvent(
         eventType: ExtremeVPNAnalyticsConstants.ExtremeVPNAnalyticsEvent,
         params: [String: String]? = nil) {
+            debugPrint("EVENT")
         analyitcsAPIService.logEvent(eventType: eventType, eventParams: params) {
-            if eventType == .install {
-                isUserInstallEventAlreadyLogged = true
-            }
+            debugPrint("SUCCESS")
+//            if eventType == .install {
+//                isUserInstallEventAlreadyLogged = true
+//            }
         }
     }
 }

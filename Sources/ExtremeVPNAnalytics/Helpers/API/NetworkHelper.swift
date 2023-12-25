@@ -18,11 +18,14 @@ class NetworkHelper: NSObject {
             }
             
             if let error = response.error {
+                debugPrint("FAIL")
                 failure(strongSelf.getNetworkError(error: error))
             } else {
                 if let model = response.value {
+                    debugPrint("SUCC")
                     success(model)
                 } else {
+                    debugPrint("FAIL")
                     failure(NetworkError.errorParsingJson)
                 }
             }
@@ -45,18 +48,22 @@ class NetworkHelper: NSObject {
     
     func post<T: Decodable>(apiRoute: ExtremeVPNAnalyticsConstants.APIRoutes, params: [String : Any]? = nil, headers: [String : String] = [:], success: @escaping (T) -> Void, failure: @escaping (Error) -> Void) {
         let httpHeaders = HTTPHeaders(headers)
+        debugPrint("PARAMS \(apiRoute.domain + apiRoute.urlString)A\(params)B\(httpHeaders)")
         APIManager.manager.request(apiRoute.domain + apiRoute.urlString, method: .post, parameters: params, headers: httpHeaders).responseDecodable(of: T.self) { [weak self] response in
             guard let strongSelf = self else {
                 return
             }
-            
+            debugPrint("RESPONSE \(response)")
             if let error = response.error {
                 failure(strongSelf.getNetworkError(error: error))
+                debugPrint("FAIL1")
             } else {
                 if let model = response.value {
                     success(model)
+                    debugPrint("SUCCESS")
                 } else {
                     failure(NetworkError.errorParsingJson)
+                    debugPrint("FAIL2")
                 }
             }
         }
